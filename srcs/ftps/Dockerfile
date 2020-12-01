@@ -4,6 +4,10 @@ RUN	apk update && apk upgrade
 
 RUN	apk add openrc openssl vsftpd
 
+RUN mkdir -p /var/ftp
+
+RUN printf "THIS IS CHECK FOR SOME FILES IN FTPS" > README.POWERED.BY.BEATZ.748.TXT
+
 RUN printf "kshantel\nkshantel\n" | adduser kshantel -s /bin/false -h /kshantel
 
 RUN	chown kshantel:kshantel /kshantel

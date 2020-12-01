@@ -6,7 +6,7 @@ RUN apk add grafana --repository=http://dl-3.alpinelinux.org/alpine/edge/testing
 
 COPY srcs/influxdb-datasource.yaml /usr/share/grafana/conf/provisioning/datasources/influxdb.yaml
 COPY srcs/dashboards.yaml /usr/share/grafana/conf/provisioning/dashboards/dashboards.yaml
-# COPY /jsons/* /var/lib/grafana/dashboards/
+COPY srcs/jsons/* /var/lib/grafana/dashboards/
 
 EXPOSE 3000
 ENTRYPOINT grafana-server --homepath=/usr/share/grafana

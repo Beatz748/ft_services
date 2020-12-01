@@ -67,5 +67,5 @@ metadata:
     app: grafana
 type: Opaque
 stringData:
-  GF_SECURITY_ADMIN_USER: msafflow
+  GF_SECURITY_ADMIN_USER: beatz
   GF_SECURITY_ADMIN_PASSWORD: password

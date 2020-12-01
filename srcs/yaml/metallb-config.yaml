@@ -6,7 +6,7 @@ metadata:
 data:
   config: |
     address-pools:
-    - name: ip-pool
+    - name: metallb
       protocol: layer2
       addresses:
-        - 192.168.99.100-192.168.99.200
+      - 192.168.99.100-192.168.99.200

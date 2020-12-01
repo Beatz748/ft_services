@@ -1,5 +1,3 @@
-#!/bin/bash
-
 rc default
 rc-service sshd start
 ssh-keygen -A

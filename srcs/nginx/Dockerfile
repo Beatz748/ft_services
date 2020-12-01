@@ -1,26 +1,31 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Dockerfile                                         :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: pmelinda <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/10/28 15:32:55 by pmelinda          #+#    #+#              #
-#    Updated: 2020/10/28 15:33:10 by pmelinda         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+FROM alpine:latest
 
-FROM alpine
+RUN apk upgrade && apk update
 
-RUN apk update && apk upgrade
-RUN apk add nginx openssl openrc openssh supervisor && mkdir -p run/nginx
+RUN apk add supervisor openssl openrc openssh openrc nginx
 
-COPY ./srcs/default /etc/nginx/conf.d/deafult.conf
-COPY ./srcs/start.sh /
-COPY ./srcs/supervisor.conf /etc/supervisord.conf
-RUN chmod +rw /etc/supervisord.conf &&  printf "root\nroot\n" | adduser pmelinda
-RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/C=RF/ST=MSK/L=SCH/O=21/CN=pmelinda' -keyout /etc/ssl/certs/nginx.key -out /etc/ssl/certs/nginx.crt
-RUN chmod +x start.sh
+RUN mkdir /run/nginx/
+
+COPY kshantel.key /etc/ssl/kshantel.key
+
+COPY kshantel.pem /etc/ssl/kshantel.pem
+
+RUN adduser -D -g 'www' www
+
+RUN mkdir /www
+
+RUN chown -R www:www /var/lib/nginx
+
+RUN chown -R www:www /www
+
+COPY nginx.conf etc/nginx/nginx.conf
+
+COPY index.html /www/index.html
+
+COPY supervisor.conf /etc/supervisord.conf
+
+COPY nginx.sh .
+
+CMD sh nginx.sh
 
 EXPOSE 80 443
-ENTRYPOINT [ "sh", "/start.sh" ]

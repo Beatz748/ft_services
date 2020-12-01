@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ftps
+  name: ftps #name
   labels:
-    app: ftps
+    app: ftps #установить эту метку
 spec:
   selector:
     matchLabels:
@@ -43,14 +43,11 @@ metadata:
   name: lb-ftps
   labels:
     app: ftps
-  annotations:
-    metallb.universe.tf/allow-shared-ip: wp
 spec:
-  externalTrafficPolicy: Cluster
   selector:
     app: ftps
   type: LoadBalancer
-  loadBalancerIP: 192.168.99.101
+  loadBalancerIP: 192.168.99.105
   ports:
     - port: 20
       name: ftp-data

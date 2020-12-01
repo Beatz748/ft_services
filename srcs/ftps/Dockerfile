@@ -1,26 +1,29 @@
-FROM alpine:latest
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Dockerfile                                         :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: pmelinda <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/10/28 13:44:56 by pmelinda          #+#    #+#              #
+#    Updated: 2020/10/28 13:54:30 by pmelinda         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-RUN	apk update && apk upgrade
+FROM	alpine
 
-RUN	apk add openrc openssl vsftpd
+RUN	apk update
+RUN	apk add openssl vsftpd
+RUN mkdir -p /var/ftp
 
-RUN printf "kshantel\nkshantel\n" | adduser kshantel -s /bin/false -h /kshantel
+COPY ./vsftpd.conf /etc/vsftpd/vsftpd.conf
+RUN	mkdir -p /ftp_anon /pmelinda
+RUN	printf "move files from the window on the left here\n" > /pmelinda/Readme.txt
+RUN	printf "root\nroot\n" | adduser pmelinda -s /bin/false -h /pmelinda
+RUN	printf "/bin/false\n" >> /etc/shells
+RUN	chown pmelinda:pmelinda /pmelinda
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/C=RF/ST=MSK/L=SCH/O=21/CN=pmelinda' -keyout /etc/vsftpd/ftps.key -out /etc/vsftpd/ftps.crt
 
-RUN	chown kshantel:kshantel /kshantel
+EXPOSE	20 21 21000
 
-COPY srcs/vsftpd.conf /etc/vsftpd/vsftpd.conf
-
-COPY srcs/start_vsftpd.sh .
-
-RUN openssl req \
-		-newkey rsa:2048 \
-		-nodes \
-		-keyout /etc/vsftpd.key \
-		-x509 \
-		-days 365 \
-		-out /etc/vsftpd.crt \
-		-subj "/C=RU/ST=Moscow/L=Moscow/O=21school/OU=21/CN=kshantel"
-
-EXPOSE 21 20 21000
-
-CMD sh start_vsftpd.sh
+ENTRYPOINT [ "vsftpd", "/etc/vsftpd/vsftpd.conf" ]

@@ -1,9 +1,19 @@
-FROM alpine:latest
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Dockerfile                                         :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: pmelinda <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/10/28 14:03:41 by pmelinda          #+#    #+#              #
+#    Updated: 2020/10/28 14:03:51 by pmelinda         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-RUN apk update && apk upgrade
+FROM alpine
 
-RUN apk add influxdb
-
-CMD influxd
+RUN apk update
+RUN	apk add influxdb
 
 EXPOSE 8086
+ENTRYPOINT ["influxd"]

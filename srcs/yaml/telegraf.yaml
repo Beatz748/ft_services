@@ -40,16 +40,8 @@ type: Opaque
 stringData:
   INFLUXDB_DB: telegraf
   INFLUXDB_URL: http://cip-influxdb:8086
-  INFLUXDB_USER: admin
-  INFLUXDB_PASSWORD: password
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: cip-telegraf
-spec:
-  selector:
-    app: telegraf
+  INFLUXDB_USER: root
+  INFLUXDB_PASSWORD: root
 ---
 apiVersion: apps/v1
 kind: Deployment

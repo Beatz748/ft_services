@@ -1,37 +1,40 @@
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
-  name: wordpress
+  name: phpmyadmin
 spec:
   selector:
     matchLabels:
-      app: wordpress
-  replicas: 1 # tells deployment to run 1 pods matching the template
+      app: phpmyadmin
+  replicas: 1
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: wordpress
+        app: phpmyadmin
     spec:
       containers:
-      - name: wordpress-container
-        image: wordpress:latest
+      - name: phpmyadmin-container
+        image: phpmyadmin:latest
         imagePullPolicy: Never
         ports:
-        - containerPort: 5050
+        - containerPort: 5000
+        env:
+          - name: PMA_HOST
+            value: "cip-mysql"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: lb-wordpress
+  name: lb-phpmyadmin
 spec:
   type: LoadBalancer
-  loadBalancerIP: 192.168.99.102
+  loadBalancerIP: 192.168.99.103
   ports:
-    - port: 5050
+    - port: 5000
       name: http
       protocol: TCP
-      targetPort: 5050
+      targetPort: 5000
   selector:
-    app: wordpress
+    app: phpmyadmin

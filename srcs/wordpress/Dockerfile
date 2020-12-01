@@ -1,24 +1,24 @@
-FROM alpine:latest
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Dockerfile                                         :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: pmelinda <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/10/28 15:39:12 by pmelinda          #+#    #+#              #
+#    Updated: 2020/10/28 15:39:16 by pmelinda         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-RUN apk update
-RUN apk upgrade
-RUN apk add wget
-RUN apk add php7 php7-fpm php7-mysqli php7-zlib php7-curl php7-mbstring php7-json php7-session
-RUN apk add nginx openrc supervisor
-RUN adduser -D -g 'www' www
-RUN mkdir /www && chown -R www:www /var/lib/nginx && chown -R www:www /www && mkdir -p /run/nginx
+FROM alpine
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+RUN apk update && apk upgrade && apk add wget openssl \
+    php7 php7-fpm php7-mysqli php7-zlib php7-curl php7-mbstring php7-json php7-session &&\ 
+    wget https://wordpress.org/latest.zip && unzip latest.zip && mv wordpress /www/ && rm latest.zip
 
-RUN wget https://wordpress.org/latest.zip
-RUN unzip latest.zip
-RUN mv wordpress /www/
-RUN rm latest.zip
-
-COPY supervisor.conf /etc/supervisord.conf
-COPY wp-config.php /www/wordpress/
-COPY start_wp.sh .
+COPY wp-config.php /www/
+COPY install.sh start.sh
+RUN chmod u+x start.sh
 
 EXPOSE 5050
-
-ENTRYPOINT ["sh", "start_wp.sh"]
+ENTRYPOINT [ "sh", "start.sh" ]

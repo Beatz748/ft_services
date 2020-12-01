@@ -5,22 +5,22 @@
 #                                                     +:+ +:+         +:+      #
 #    By: pmelinda <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/10/28 15:32:55 by pmelinda          #+#    #+#              #
-#    Updated: 2020/10/28 15:33:10 by pmelinda         ###   ########.fr        #
+#    Created: 2020/10/28 14:48:32 by pmelinda          #+#    #+#              #
+#    Updated: 2020/10/28 14:48:41 by pmelinda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FROM alpine
 
-RUN apk update && apk upgrade
-RUN apk add nginx openssl openrc openssh supervisor && mkdir -p run/nginx
+RUN apk update && apk upgrade && apk add mysql mysql-client openrc
+VOLUME [ "/var/lib/mysql" ]
 
-COPY ./srcs/default /etc/nginx/conf.d/deafult.conf
-COPY ./srcs/start.sh /
-COPY ./srcs/supervisor.conf /etc/supervisord.conf
-RUN chmod +rw /etc/supervisord.conf &&  printf "root\nroot\n" | adduser pmelinda
-RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/C=RF/ST=MSK/L=SCH/O=21/CN=pmelinda' -keyout /etc/ssl/certs/nginx.key -out /etc/ssl/certs/nginx.crt
-RUN chmod +x start.sh
+COPY ./src/mysql_conf.sql /etc/
+COPY ./src/my.cnf /etc/
+COPY ./src/wordpress.sql /etc/
+COPY ./src/start.sh .
 
-EXPOSE 80 443
-ENTRYPOINT [ "sh", "/start.sh" ]
+RUN chmod u+x start.sh
+
+EXPOSE 3306
+ENTRYPOINT [ "sh", "start.sh" ]

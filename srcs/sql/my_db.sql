@@ -453,8 +453,8 @@ CREATE TABLE `wp_users` (
 --
 
 INSERT INTO `wp_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`, `user_activation_key`, `user_status`, `display_name`) VALUES
-(1, 'admin', '$P$BWk3x/uSSYlwMLYHEV9zfbFDgiCOJF0', 'admin', 'alo@gmail.com', 'http://192.168.99.102:5050', '2020-10-29 11:12:15', '', 0, 'admin'),
-(2, 'kshantel', '$P$B8YBT4sgMCOT644JmcpPuWLjFn9XIM/', 'kshantel', 'kshantel@a.a', '', '2020-10-29 11:14:41', '1603451681:$P$BzRoyYaTJF1fceEbHGYwbbsIbS3fPs/', 0, 'kshantel'),
+(1, 'admin', '$P$BWk3x/uSSYlwMLYHEV9zfbFDgiCOJF0', 'admin', 'beatz@gmail.com', 'http://192.168.99.102:5050', '2020-10-29 11:12:15', '', 0, 'admin'),
+(2, 'kshantel', '$P$B4hHJJsgMCOT644JmcpPuWLjFn9XIM/', 'kshantel', 'kshantel@a.a', '', '2020-10-29 10:14:41', '1603451672:$P$B8RoyeaTJF1fceEbHGYwbbsIbS3fPs/', 0, 'kshantel'),
 (3, 'msafflow', '$P$B2aELWE0WvYYPmmdHpiRqY21ucM0YD.', 'msafflow', 'msafflow@a.a', '', '2020-10-29 11:14:17', '1603451658:$P$BL1e8d0VNF5w1urwb/Ake/NYLmbbRR0', 0, 'msafflow'),
 (4, 'tibidril', '$P$B8YBT4sgMCOT644JmcpPuWLjFn9XIM/', 'tiribidril', 'ribidril@a.a', '', '2020-10-29 11:14:41', '1603451681:$P$BzRoyYaTJF1fceEbHGYwbbsIbS3fPs/', 0, 'tibidril');
 

@@ -6,9 +6,13 @@ RUN	apk add openrc openssl vsftpd
 
 RUN mkdir -p /var/ftp
 
-RUN printf "THIS IS CHECK FOR SOME FILES IN FTPS" > README.POWERED.BY.BEATZ.748.TXT
+RUN	mkdir -p /ftp_anon /kshantel
+
+RUN printf "THIS IS CHECK FOR SOME FILES IN FTPS" > /kshantel/README.POWERED.BY.BEATZ.748.TXT
 
 RUN printf "kshantel\nkshantel\n" | adduser kshantel -s /bin/false -h /kshantel
+
+RUN	printf "/bin/false\n" >> /etc/shells
 
 RUN	chown kshantel:kshantel /kshantel
 
@@ -27,4 +31,4 @@ RUN openssl req \
 
 EXPOSE 21 20 21000
 
-CMD sh start_vsftpd.sh
+ENTRYPOINT [ "sh", "start_vsftpd.sh" ]

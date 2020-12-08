@@ -1,4 +1,4 @@
-# export MINIKUBE_HOME=~/goinfre
+export MINIKUBE_HOME=~/goinfre
 
 minikube start --vm-driver=virtualbox --cpus=2 --disk-size="11000mb" --memory="3000mb"
 

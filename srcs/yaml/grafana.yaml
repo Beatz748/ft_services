@@ -14,7 +14,7 @@ metadata:
   labels:
     app: grafana
   annotations:
-    metallb.universe.tf/allow-shared-ip: wp
+    metallb.universe.tf/allow-shared-ip: shared-ip
 spec:
   externalTrafficPolicy: Cluster
   selector:

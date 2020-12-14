@@ -15,7 +15,7 @@ spec:
         app: wordpress
     spec:
       containers:
-        - name: wordpress-container
+        - name: wordpress
           image: wordpress:latest
           imagePullPolicy: Never
           ports:
@@ -28,7 +28,7 @@ metadata:
   labels:
     app: wordpress
   annotations:
-    metallb.universe.tf/allow-shared-ip: wp
+    metallb.universe.tf/allow-shared-ip: shared-ip
 spec:
   externalTrafficPolicy: Cluster
   type: LoadBalancer

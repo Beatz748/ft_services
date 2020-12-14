@@ -1,12 +1,15 @@
 FROM alpine:latest
 
-RUN apk update && apk upgrade && apk add mariadb mariadb-client && apk add openrc
-COPY my.cnf /etc/
-COPY start_mariadb.sh .
-COPY create_db .
-COPY my_db.sql .
-VOLUME ["/var/lib/mysql"]
-
 EXPOSE 3306
 
-ENTRYPOINT ["sh", "start_mariadb.sh"]
+RUN adduser -D -g 'mysql' mysql
+
+RUN apk add --no-cache mysql mysql-client
+
+COPY my_db.sql /etc/mysql/config.sql
+
+COPY my.cnf /etc/mysql/my.cnf
+
+COPY start_mysql.sh /usr/local/bin/start_mysql.sh
+
+ENTRYPOINT ["start_mysql.sh"]

@@ -16,7 +16,7 @@ spec:
         app: ftps
     spec:
       containers:
-        - name: ftps-container
+        - name: ftps
           image: ftps
           imagePullPolicy: Never
           ports:
@@ -44,7 +44,7 @@ metadata:
   labels:
     app: ftps
   annotations:
-    metallb.universe.tf/allow-shared-ip: wp
+    metallb.universe.tf/allow-shared-ip: shared-ip
 spec:
   externalTrafficPolicy: Cluster
   selector:

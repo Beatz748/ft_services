@@ -1,0 +1,3 @@
+CREATE DATABASE wordpress;
+GRANT ALL ON wordpress.* TO 'mysql'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;

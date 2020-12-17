@@ -20,7 +20,9 @@ SET time_zone = "+00:00";
 --
 -- Database: `wordpress`
 --
-
+CREATE DATABASE IF NOT EXISTS `wordpress`
+  DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE wordpress;
 -- --------------------------------------------------------
 
 --

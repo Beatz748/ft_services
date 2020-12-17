@@ -4,14 +4,13 @@ EXPOSE 3306
 
 RUN adduser -D -g 'mysql' mysql
 
-RUN apk add --no-cache mysql mysql-client
+RUN apk add --no-cache mysql mysql-client openrc
 
 COPY my_db.sql /etc/mysql/config.sql
 
 COPY my.cnf /etc/mysql/my.cnf
-
-COPY wordpress.sql /etc/mysql/wordpress.sql
-
 COPY start_mysql.sh /usr/local/bin/start_mysql.sh
+COPY wordpress.sql .
+
 
 ENTRYPOINT ["start_mysql.sh"]

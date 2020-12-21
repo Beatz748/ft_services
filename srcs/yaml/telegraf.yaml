@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: telegraf-config
   labels:
-    app: telegraf
+    app: telegraf-app
 data:
   telegraf.conf: |
     [global_tags]
@@ -46,26 +46,26 @@ stringData:
 apiVersion: v1
 kind: Service
 metadata:
-  name: cip-telegraf
+  name: telegraf-service
 spec:
   selector:
-    app: telegraf
+    app: telegraf-app
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: telegraf
+  name: telegraf-deployment
 spec:
   selector:
     matchLabels:
-      app: telegraf
+      app: telegraf-app
   replicas: 1
   minReadySeconds: 5
   template:
     metadata:
-      name: telegraf
+      name: telegraf-pod
       labels:
-        app: telegraf
+        app: telegraf-app
     spec:
       containers:
         - name: telegraf-container

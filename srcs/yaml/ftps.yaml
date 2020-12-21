@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ftps
+  name: ftps-deployment
   labels:
-    app: ftps
+    app: ftps-app
 spec:
   selector:
     matchLabels:
-      app: ftps
+      app: ftps-app
   replicas: 1
   template:
     metadata:
@@ -15,6 +15,13 @@ spec:
       labels:
         app: ftps
     spec:
+      volumes:
+        - name: ftps-storage
+          persistentVolumeClaim:
+            claimName: file-server-persistent-volume-claim
+      volumeMounts:
+          - name: ftps-storage
+            mountPath: /var/ftp/data
       containers:
         - name: ftps
           image: ftps
@@ -25,30 +32,17 @@ spec:
             - containerPort: 21000
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: ftps-pvc
-  labels:
-    app: ftps
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 500Mi
----
-apiVersion: v1
 kind: Service
 metadata:
-  name: lb-ftps
-  labels:
-    app: ftps
   annotations:
     metallb.universe.tf/allow-shared-ip: shared-ip
+  name: ftps-service
+  labels:
+    app: ftps-app
 spec:
   externalTrafficPolicy: Cluster
   selector:
-    app: ftps
+    app: ftps-app
   type: LoadBalancer
   loadBalancerIP: 192.168.99.101
   ports:

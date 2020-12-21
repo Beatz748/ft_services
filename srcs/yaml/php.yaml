@@ -2,18 +2,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: php
+  name: php-deployment
 spec:
   selector:
     matchLabels:
-      app: php
+      app: php-app
   replicas: 1
-  strategy:
-    type: Recreate
   template:
     metadata:
+      name: php-pod
       labels:
-        app: php
+        app: php-app
     spec:
       containers:
         - name: php
@@ -25,11 +24,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: lb-php
-  labels:
-    app: php
   annotations:
     metallb.universe.tf/allow-shared-ip: shared-ip
+  name: php-service
+  labels:
+    app: php-app
 spec:
   externalTrafficPolicy: Cluster
   type: LoadBalancer
@@ -40,4 +39,4 @@ spec:
       protocol: TCP
       targetPort: 5000
   selector:
-    app: php
+    app: php-app

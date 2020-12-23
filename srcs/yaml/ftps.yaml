@@ -13,15 +13,12 @@ spec:
     metadata:
       name: ftps-pod
       labels:
-        app: ftps
+        app: ftps-app
     spec:
       volumes:
         - name: ftps-storage
           persistentVolumeClaim:
             claimName: file-server-persistent-volume-claim
-      volumeMounts:
-          - name: ftps-storage
-            mountPath: /var/ftp/data
       containers:
         - name: ftps
           image: ftps
@@ -30,6 +27,9 @@ spec:
             - containerPort: 20
             - containerPort: 21
             - containerPort: 21000
+          volumeMounts:
+            - name: ftps-storage
+              mountPath: /var/ftp/data
 ---
 apiVersion: v1
 kind: Service

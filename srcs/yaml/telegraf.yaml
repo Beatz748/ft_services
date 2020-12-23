@@ -43,14 +43,6 @@ stringData:
   INFLUXDB_USER: admin
   INFLUXDB_PASSWORD: password
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: telegraf-service
-spec:
-  selector:
-    app: telegraf-app
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -68,7 +60,7 @@ spec:
         app: telegraf-app
     spec:
       containers:
-        - name: telegraf-container
+        - name: telegraf
           image: telegraf
           imagePullPolicy: Never
           volumeMounts:

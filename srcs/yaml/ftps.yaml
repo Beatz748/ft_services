@@ -29,7 +29,7 @@ spec:
             - containerPort: 21000
           volumeMounts:
             - name: ftps-storage
-              mountPath: /var/ftp/data
+              mountPath: /kshantel
 ---
 apiVersion: v1
 kind: Service

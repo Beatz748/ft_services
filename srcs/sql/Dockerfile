@@ -10,7 +10,6 @@ COPY my_db.sql /etc/mysql/config.sql
 
 COPY my.cnf /etc/mysql/my.cnf
 COPY start_mysql.sh /usr/local/bin/start_mysql.sh
-COPY wordpress.sql .
 
 
 ENTRYPOINT ["start_mysql.sh"]

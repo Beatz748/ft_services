@@ -10,11 +10,11 @@ data:
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    metallb.universe.tf/allow-shared-ip: shared-ip
-  name: grafana-service
+  name: lb-grafana
   labels:
     app: grafana
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared-ip
 spec:
   externalTrafficPolicy: Cluster
   selector:
@@ -29,7 +29,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: grafana-deployment
+  name: grafana
   labels:
     app: grafana
 spec:
@@ -38,7 +38,7 @@ spec:
       app: grafana
   template:
     metadata:
-      name: grafana-pod
+      name: grafana
       labels:
         app: grafana
     spec:

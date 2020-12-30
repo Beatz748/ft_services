@@ -24,7 +24,6 @@ spec:
           image: ftps
           imagePullPolicy: Never
           ports:
-            - containerPort: 20
             - containerPort: 21
             - containerPort: 21000
           volumeMounts:
@@ -46,9 +45,6 @@ spec:
   type: LoadBalancer
   loadBalancerIP: 192.168.99.101
   ports:
-    - port: 20
-      name: ftp-data
-      targetPort: 20
     - port: 21
       name: ftp-command
       targetPort: 21

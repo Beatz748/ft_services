@@ -6,13 +6,13 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: php-app
+      app: php
   replicas: 1
   template:
     metadata:
       name: php-pod
       labels:
-        app: php-app
+        app: php
     spec:
       containers:
         - name: php
@@ -28,7 +28,7 @@ metadata:
     metallb.universe.tf/allow-shared-ip: shared-ip
   name: php-service
   labels:
-    app: php-app
+    app: php
 spec:
   externalTrafficPolicy: Cluster
   type: LoadBalancer
@@ -39,4 +39,4 @@ spec:
       protocol: TCP
       targetPort: 5000
   selector:
-    app: php-app
+    app: php

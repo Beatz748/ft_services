@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: influxdb-config
   labels:
-    app: influxdb-app
+    app: influxdb
 data:
   influxdb.conf: |
     bind-adress="127.0.0.1:8088"
@@ -22,12 +22,12 @@ data:
 apiVersion: v1
 kind: Service
 metadata:
-  name: influxdb-service
+  name: cip-influxdb
   labels:
-    app: influxdb-app
+    app: influxdb
 spec:
   selector:
-    app: influxdb-app
+    app: influxdb
   ports:
     - protocol: TCP
       port: 8086
@@ -36,21 +36,21 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: influxdb-deployment
+  name: influxdb
 spec:
   selector:
     matchLabels:
-      app: influxdb-app
+      app: influxdb
   replicas: 1
   minReadySeconds: 5
   template:
     metadata:
-      name: influxdb-pod
+      name: influxdb
       labels:
-        app: influxdb-app
+        app: influxdb
     spec:
       containers:
-        - name: influxdb
+        - name: influxdb-container
           image: influxdb
           imagePullPolicy: Never
           ports:
@@ -77,7 +77,7 @@ spec:
       volumes:
         - name: influxdb-volume
           persistentVolumeClaim:
-            claimName: database-persistent-volume-claim
+            claimName: influxdb-pvc
         - name: influxdb-config
           configMap:
             name: influxdb-config
@@ -87,7 +87,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: influxdb-pvc
   labels:
-    app: influxdb-app
+    app: influxdb
 spec:
   accessModes:
     - ReadWriteOnce

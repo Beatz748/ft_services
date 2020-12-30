@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: telegraf-config
   labels:
-    app: telegraf-app
+    app: telegraf
 data:
   telegraf.conf: |
     [global_tags]
@@ -43,24 +43,32 @@ stringData:
   INFLUXDB_USER: admin
   INFLUXDB_PASSWORD: password
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cip-telegraf
+spec:
+  selector:
+    app: telegraf
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: telegraf-deployment
+  name: telegraf
 spec:
   selector:
     matchLabels:
-      app: telegraf-app
+      app: telegraf
   replicas: 1
   minReadySeconds: 5
   template:
     metadata:
-      name: telegraf-pod
+      name: telegraf
       labels:
-        app: telegraf-app
+        app: telegraf
     spec:
       containers:
-        - name: telegraf
+        - name: telegraf-container
           image: telegraf
           imagePullPolicy: Never
           volumeMounts:

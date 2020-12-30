@@ -29,6 +29,6 @@ RUN openssl req \
 		-out /etc/vsftpd.crt \
 		-subj "/C=RU/ST=Moscow/L=Moscow/O=21school/OU=21/CN=kshantel"
 
-EXPOSE 21 20 21000
+EXPOSE 21 21000
 
 ENTRYPOINT [ "sh", "start_vsftpd.sh" ]

@@ -15,7 +15,6 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": null,
   "links": [],
   "panels": [
     {
@@ -58,7 +57,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.2.1",
       "targets": [
         {
           "groupBy": [
@@ -100,7 +99,7 @@
             {
               "key": "app",
               "operator": "=",
-              "value": "ftps"
+              "value": "ftps-app"
             }
           ]
         }
@@ -148,7 +147,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.2.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -197,7 +196,7 @@
             {
               "key": "app",
               "operator": "=",
-              "value": "ftps"
+              "value": "ftps-app"
             }
           ]
         }
@@ -281,7 +280,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.2.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -328,7 +327,7 @@
             {
               "key": "app",
               "operator": "=",
-              "value": "ftps"
+              "value": "ftps-app"
             }
           ]
         }
@@ -382,9 +381,13 @@
   "templating": {
     "list": []
   },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
   "timepicker": {},
   "timezone": "",
   "title": "Ftps",
-  "uid": null,
-  "version": 0
+  "uid": "52Bh3ybMk",
+  "version": 1
 }

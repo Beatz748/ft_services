@@ -18,7 +18,7 @@ RUN chown -R www:www /var/lib/nginx
 
 RUN chown -R www:www /www
 
-COPY nginx.conf etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/conf.d/kshantel.conf
 
 COPY index.html /www/index.html
 
